@@ -25,7 +25,7 @@ document.getElementById("submitSheetLink").addEventListener("click", async ()=>{
         let datas = JSON.parse(rep.substring(47).slice(0,-2));
         sessionStorage.setItem("SheetURLData", JSON.stringify(datas.table.rows));
     });
-    if(location.origin === "leequanno1.github.io"){
+    if(location.hostname === "leequanno1.github.io"){
         location.href = location.origin + "/QuizQuotient/Views/QUIZQUOTIENT_SheetURL.html";
     }else{
         location.href = location.origin + "/Views/QUIZQUOTIENT_SheetURL.html";
@@ -43,7 +43,7 @@ document.getElementById("fileSheet").addEventListener("change", async (event)=> 
     .then((rows) => {
         sessionStorage.setItem("SheetFileData", JSON.stringify(rows));
     });
-    if(location.origin === "leequanno1.github.io"){
+    if(location.hostname === "leequanno1.github.io"){
         location.href = location.origin + "/QuizQuotient/Views/QUIZQUOTIENT_SheetFile.html";
     }else{
         location.href = location.origin + "/Views/QUIZQUOTIENT_SheetFile.html";
