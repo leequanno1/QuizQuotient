@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./Content/bootstrap-5.3.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="./Content/Index/Index.component.css">
+    <link rel="stylesheet" href="./Content/Index/Index.main.css">
+    <link rel="stylesheet" href="./Content/Index/Index.popup.css">
+</head>
+<body>
+    <header></header>
+    <!-- INPUT FILE ZONE -->
+    <main class="main-body">
+        <div></div>
+        <div class="main-text-container">
+            <h1 class="mb-4">QUIZQUOTIENT</h1>
+            <p class="slogan mb-4">Nền tảng sắp xếp câu hỏi trực tuyến bằng danh sách học sinh.</p>
+            <div class="button-container">
+                <div class="input-sheet-button mb-3">
+                    <label for="fileSheet">
+                        <span>Chọn file từ thiết bị</span>
+                        <input type="file" class="file-input-hiden" id="fileSheet" accept=".xls, .xlsx">
+                    </label>
+                </div>
+                <div class="show-pop-up-button input-sheet-button mb-3" id="btnShowPopup" onclick="showPopup('SheetURLContainer')">Chọn file từ link google sheets (public)</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- SHOW POP UP ZONE -->
+    <div class="container-absolute hidden-container popup-container shadow" id="SheetURLContainer">
+        <div>
+            <div class="mb-4">
+                <div><label for="txtSheetUrl">Nhập sheet URL</label></div>
+                <input type="text" class="text-box" id="txtSheetUrl" placeholder="URL của bạn">
+            </div>
+            <div class="gap-3">
+                <button class="custom-button mb-3">OK</button>
+                <button class="custom-button mb-3" onclick="cancelPopup('SheetURLContainer')">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <footer></footer>
+    <script src="./Controller/PopupController.js"></script>
+</body>
+</html>

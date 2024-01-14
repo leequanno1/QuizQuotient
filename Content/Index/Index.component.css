@@ -1,0 +1,41 @@
+/* Text box  */
+.text-box {
+    padding: 5px;
+    border: 1px solid #ffffff;
+    background: transparent;
+    color: #ffffff;
+    outline: none;
+    width: 100%;
+}
+
+/* Buton  */
+
+.custom-button {
+    border: 1px solid #ffffff;
+    width: 100%;
+    padding: 5px;
+    display: grid;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    background: #161719;
+}
+
+.custom-button:hover {
+    background: #31343a;
+}
+
+.custom-button:active {
+    background: #242a36;
+}
+
+.custom-button * {
+    cursor: pointer;
+}
+
+/* Container  */
+.hidden-container {
+    visibility: collapse;
+}
+

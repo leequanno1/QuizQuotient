@@ -1,0 +1,17 @@
+.container-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.popup-container {
+    min-width: 450px;
+    min-height: 200px;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    display: grid;
+    align-items: center;
+    background: #0b0c0e;
+    border-radius: 3px;
+}

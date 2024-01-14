@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+body {
+    background: #161719;
+}
+
+.main-body {
+    display: flex;
+    position: relative;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url(../../Resources/Images/pxfuel.jpg);
+}
+
+.main-text-container {
+    position: absolute;
+    color: #ffffff;
+    right: 0;
+    width: 45%;
+    min-width: 450px;
+    padding: 10px;
+    top: 20%;
+}
+
+.slogan {
+    width: 50%;
+}
+
+.button-container {
+    position: absolute;
+    width: 45%;
+    min-width: 310px;
+    
+}
+
+.file-input-hiden {
+    display: none;
+}
+
+.input-sheet-button {
+    border: 1px solid #ffffff;
+    width: 100%;
+    padding: 5px;
+    display: grid;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    background: #161616;
+}
+
+.input-sheet-button:hover {
+    background: #31343a;
+}
+
+.input-sheet-button:active {
+    background: #242a36;
+}
+
+.input-sheet-button * {
+    cursor: pointer;
+}
+
+.input-sheet-button p {
+    margin: 0;
+}
+
+.input-sheet-button label {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+}
