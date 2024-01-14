@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>QUIZQUOTIENT</title>
     <link rel="stylesheet" href="./Content/bootstrap-5.3.2-dist/css/bootstrap.css">
     <link rel="stylesheet" href="./Content/Index/Index.component.css">
     <link rel="stylesheet" href="./Content/Index/Index.main.css">
@@ -37,13 +37,13 @@
                 <input type="text" class="text-box" id="txtSheetUrl" placeholder="URL của bạn">
             </div>
             <div class="gap-3">
-                <button class="custom-button mb-3">OK</button>
+                <button class="custom-button mb-3" id="submitSheetLink">OK</button>
                 <button class="custom-button mb-3" onclick="cancelPopup('SheetURLContainer')">Cancel</button>
             </div>
         </div>
     </div>
-
     <footer></footer>
+    <script src="https://unpkg.com/read-excel-file@5.x/bundle/read-excel-file.min.js"></script>
     <script src="./Controller/PopupController.js"></script>
 </body>
 </html>

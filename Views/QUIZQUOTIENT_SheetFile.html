@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZQUOTIENT</title>
+</head>
+<body>
+    QUIZQUOTIENT_SheetFile
+    <script>
+        let sheetURLData = JSON.parse(sessionStorage.getItem("SheetFileData"));
+        if (!sheetURLData){
+            location.href = location.origin + "/Views/NotFound.html";
+        }
+        console.log(sheetURLData);
+    </script>
+</body>
+</html>
