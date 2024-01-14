@@ -10,7 +10,11 @@
     <script>
         let sheetURLData = JSON.parse(sessionStorage.getItem("SheetFileData"));
         if (!sheetURLData){
-            location.href = location.origin + "/Views/NotFound.html";
+            if(location.origin === "leequanno1.github.io"){
+                location.href = location.origin + "/QuizQuotient/Views/NotFound.html";
+            }else{
+                location.href = location.origin + "/Views/NotFound.html";
+            }
         }
         console.log(sheetURLData);
     </script>

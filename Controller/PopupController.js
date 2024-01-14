@@ -25,7 +25,11 @@ document.getElementById("submitSheetLink").addEventListener("click", async ()=>{
         let datas = JSON.parse(rep.substring(47).slice(0,-2));
         sessionStorage.setItem("SheetURLData", JSON.stringify(datas.table.rows));
     });
-    location.href = location.origin + "/Views/QUIZQUOTIENT_SheetURL.html";
+    if(location.origin === "leequanno1.github.io"){
+        location.href = location.origin + "/QuizQuotient/Views/QUIZQUOTIENT_SheetURL.html";
+    }else{
+        location.href = location.origin + "/Views/QUIZQUOTIENT_SheetURL.html";
+    }
 
 })
 
@@ -39,7 +43,11 @@ document.getElementById("fileSheet").addEventListener("change", async (event)=> 
     .then((rows) => {
         sessionStorage.setItem("SheetFileData", JSON.stringify(rows));
     });
-    location.href = location.origin + "/Views/QUIZQUOTIENT_SheetFile.html";
+    if(location.origin === "leequanno1.github.io"){
+        location.href = location.origin + "/QuizQuotient/Views/QUIZQUOTIENT_SheetFile.html";
+    }else{
+        location.href = location.origin + "/Views/QUIZQUOTIENT_SheetFile.html";
+    }
 })
 
 // https://docs.google.com/spreadsheets/d/1G76lYorHhsBM-ZVDBHdBdP7VwDuNUpQH4ql3Zdr3A-k/edit#gid=0
