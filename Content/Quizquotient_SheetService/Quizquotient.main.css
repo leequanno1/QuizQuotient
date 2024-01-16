@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #ffffff;
+}
+
+body {
+    background: #161719;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+header #logoNav {
+    text-decoration: none;
+    font-size: 2rem;
+}
+
+main {
+    padding-inline: 20px;
+}
+
+.input-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filter-container {
+    width: 350px;
+}
+
+.filter-container:nth-child(1) {
+    margin-right: 60px;
+}
+
+/* Table container */
+.table-settup-container {
+    width: 100%;
+    min-height: 70vh;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.table-container {
+    width: fit-content;
+    max-width: 890px;
+    margin-right: 20px;
+    height: auto;
+    max-height: 80vh;
+    overflow-x: auto;
+}
+
+.advandt-setting {
+    display: flex;
+    flex-direction: column;
+}
+
+table, th, td {
+    border:1px solid #ffffff;
+    border-collapse: collapse;
+    font-size: .85rem;
+}
+
+table {
+    min-width: 600px;
+}
+
+td {
+    padding-inline: 8px;
+    padding-block: 5px;
+}
+
+td >div,th>div {
+    padding: 5px;
+    height: 100%;
+    width: 100%;
+}
+
+.tr-0 {
+    position: sticky;
+    top: -0.5px;
+    background: black;
+}
+
+.tr-0 div{
+    border: 1px solid #fff;
+}
+
+th {
+    min-width: 40px;
+    text-align: center;
+}

@@ -16,21 +16,26 @@ document.getElementById("submitSheetLink").addEventListener("click", async ()=>{
         return;
     }else{
         newUrl = urlData.split('/edit#gid')[0] + "/gviz/tq";
-        // Log for debug
-        // console.log(newUrl)
     }
     await fetch(newUrl)
     .then(res => res.text())
     .then(rep => {
         let datas = JSON.parse(rep.substring(47).slice(0,-2));
-        sessionStorage.setItem("SheetURLData", JSON.stringify(datas.table.rows));
+        let datasTranform = datas.table.rows.map((row)=> {
+            return row.c.map((element) => {
+                if(element == null){
+                    return null;
+                }
+                return element.v;
+            })
+        });
+        sessionStorage.setItem("SheetData", JSON.stringify(datasTranform));
     });
     if(location.hostname === "leequanno1.github.io"){
-        location.href = location.origin + "/QuizQuotient/Views/QUIZQUOTIENT_SheetURL.html";
+        location.href = location.origin + "/QuizQuotient/Views/QuizQuotientProcesser.html";
     }else{
-        location.href = location.origin + "/Views/QUIZQUOTIENT_SheetURL.html";
+        location.href = location.origin + "/Views/QuizQuotientProcesser.html";
     }
-
 })
 
 document.getElementById("fileSheet").addEventListener("change", async (event)=> {
@@ -41,12 +46,12 @@ document.getElementById("fileSheet").addEventListener("change", async (event)=> 
     }
     await readXlsxFile(sheetFile)
     .then((rows) => {
-        sessionStorage.setItem("SheetFileData", JSON.stringify(rows));
+        sessionStorage.setItem("SheetData", JSON.stringify(rows));
     });
     if(location.hostname === "leequanno1.github.io"){
-        location.href = location.origin + "/QuizQuotient/Views/QUIZQUOTIENT_SheetFile.html";
+        location.href = location.origin + "/QuizQuotient/Views/QuizQuotientProcesser.html";
     }else{
-        location.href = location.origin + "/Views/QUIZQUOTIENT_SheetFile.html";
+        location.href = location.origin + "/Views/QuizQuotientProcesser.html";
     }
 })
 

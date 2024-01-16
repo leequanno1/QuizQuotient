@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuizQuotient</title>
+    <link rel="stylesheet" href="../Content/bootstrap-5.3.2-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../Content/Index/Index.component.css">
+    <link rel="stylesheet" href="../Content/Quizquotient_SheetService/Quizquotient.main.css">
+</head>
+<body>
+    <header>
+        <a id="logoNav" href="../">QUIZQUOTIENT</a>
+    </header>
+    <main>
+        <div class="input-container"> 
+            <div class="table-zone-container filter-container mb-3">
+                <label for="" class="mb-1 custom-label">Phạm vi danh sách</label>
+                <input type="text" class="text-box mb-2" name="" id="" placeholder="Chọn phạm vi bảng (không kèm tiêu đề bảng)">
+                <span><i>Nhập hoặc kéo thả chuột trái từ bảng</i></span>
+            </div>
+            <div class="filter-container mb-3">
+                <label for="" class="mb-1 custom-label">Số lượng câu hỏi</label>
+                <input type="text" class="text-box" name="" id="" placeholder="Nhập số lượng câu hỏi">
+            </div>
+        </div>
+
+        <div class="table-settup-container">
+            <div class="mb-3">
+                <label for="" class="mb-1 custom-label">Thông tin bảng</label>
+                <div class="table-container">
+                    <table id="contentSheet">
+                    
+                    </table>
+                </div>
+            </div>
+            <div class="advandt-setting mb-3">
+                <label for="" class="mb-1 custom-label">Thiết lập nâng cao</label>
+                <div class="filter-container mb-3">
+                    <label for="" class="mb-1 custom-label">Tiêu chí lọc</label>
+                    <input type="text" class="text-box mb-2" name="" id="" placeholder="Chọn cột tiêu chí lọc (điểm trung bình)">
+                    <span><i>Nhập hoặc chọn bằng chuột phải từ bảng</i></span>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../Controller/QuizquotientController.js"></script>
+</body>
+</html>

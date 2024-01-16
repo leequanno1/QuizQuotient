@@ -6,6 +6,7 @@
     color: #ffffff;
     outline: none;
     width: 100%;
+    text-justify: center;
 }
 
 /* Buton  */
@@ -39,3 +40,6 @@
     visibility: collapse;
 }
 
+.custom-label {
+    font-size: 1.2rem;
+}
