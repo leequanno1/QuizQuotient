@@ -1,4 +1,7 @@
 let sheetData = JSON.parse(sessionStorage.getItem("SheetData"));
+let selectedQue = [];
+
+// Script check for session
 if (!sheetData){
     if(location.hostname === "leequanno1.github.io"){
         location.href = location.origin + "/QuizQuotient/Views/NotFound.html";
@@ -7,32 +10,108 @@ if (!sheetData){
     }
 }
 
-// Render header
-let converAscciCode = function(number) {
-    if(number == 0 || number > 26){
-        return "&#48";
+//Render selectedQue 
+let renderSelectedQue = function() {
+    for(let i = 0; i < selectedQue.length; i++){
+        let cell = document.querySelector(`.${selectedQue[i]}`)
+        if(cell){
+            cell.classList.add("cell-selected");
+        }
     }
-    return `&#${number + 64}`;
 }
 
+//Reset selectedQue 
+let resetSelectedQue = function() {
+    for(let i = 0; i < selectedQue.length; i++){
+        let cell = document.querySelector(`.${selectedQue[i]}`);
+        if(cell){
+            cell.classList.remove("cell-selected");
+        }
+    }
+}
+
+
+let renderSlectedCell = function(cell){
+    resetSelectedQue();
+    selectedQue = [];
+    selectedQue.push(cell.toUpperCase())
+    renderSelectedQue()
+}
+
+let renderMultipleSlectedCells = function(rangeX,rangeY){
+    resetSelectedQue();
+    selectedQue = [];
+    for(let i = rangeX[0]; i <= rangeX[1]; i++){
+        let col = converAscciCodeToString(i);
+        for(let j = rangeY[0]; j <= rangeY[1]; j++){
+            let cell = col+j.toString();
+            selectedQue.push(cell);
+        }
+    }
+    renderSelectedQue();
+}
+
+//Format in range X
+let formatInRangeX = function(number){
+    if(number <= 0){
+        return 1;
+    }
+    if(number >= sheetData[0].length){
+        return sheetData[0].length-1;
+    }
+    return number;
+}
+
+//Format in range Y
+let formatInRangeY = function(number){
+    if(number <= 0){
+        return 1;
+    }
+    if(number >= sheetData.length){
+        return sheetData.length-1;
+    }
+    return number;
+}
+
+// Render header
+let converAscciCodeToString = function(number) {
+    if(number == 0 || number > 26){
+        return "0";
+    }
+    return String.fromCharCode(number + 64);
+}
+
+// Convert char to ascci code
+let convertCharToAscci = function(character) {
+    return character.charCodeAt(0) - 64;
+}
+
+let converStringToNumber = function(character) {
+    let res = 0;
+    for(let i = 0; i < character.length; i++){
+        res += convertCharToAscci(character.charAt(i).toUpperCase()) * 26**i;
+    }
+    return res;
+}
+
+// Get the character at the "number" position
 let getTableHeader = function(number) {
     let headerString = "";
     while(number > 26){
         let reminder = number%26;
         if(reminder === 0){
             number = Math.floor(number/26) - 1;
-            headerString = `${converAscciCode(26)}${headerString}`;
+            headerString = `${converAscciCodeToString(26)}${headerString}`;
         }else{
             number = Math.floor(number/26);
-            headerString = `${converAscciCode(reminder)}${headerString}`;
+            headerString = `${converAscciCodeToString(reminder)}${headerString}`;
         }
     }
-    // if (number > 0){
-        headerString = `${converAscciCode(number)}${headerString}`;
-    // }
+    headerString = `${converAscciCodeToString(number)}${headerString}`;
     return headerString.trim();
 }
 
+// Generate a first row (header) for the table
 let setTableHeader = function() {
     let collume = sheetData[0].length;
     let headerArray = [];
@@ -41,15 +120,11 @@ let setTableHeader = function() {
     }
     sheetData = [headerArray,...sheetData];
     for(let i = 0; i < sheetData.length; i++){
-        // if(i === 0){
-        //     sheetData[i] = ["0",...sheetData[i]];
-        // }else{
-        // sheetData[i] = [i,...sheetData[i]];
-        // }
         sheetData[i] = [i,...sheetData[i]];
     }
 }
 
+// Doom table cell
 let doomTable = function() {
     let doomElement = sheetData.map((row, indexX) => {
         let tdString = row.map((element, indexY) => {
@@ -59,9 +134,9 @@ let doomTable = function() {
                 content = "";
             }
             if(indexX == 0 || indexY == 0){
-                cell = `<th><div class="${indexX}:${getTableHeader(indexY)}" >${content}</div></th>`;
+                cell = `<th><div class="${getTableHeader(indexY)}${indexX}" >${content}</div></th>`;
             }else{
-                cell = `<td class="${indexX}:${getTableHeader(indexY)}" >${content}</td>`;
+                cell = `<td class="${getTableHeader(indexY)}${indexX}" >${content}</td>`;
             }
             return cell;
         }).join(" ");
@@ -76,7 +151,53 @@ let doomTable = function() {
     document.getElementById("contentSheet").innerHTML = doomElement;
 }
 
-//Main function()
-setTableHeader();
-console.log(sheetData);
-doomTable();
+let splitDigitsAndLetters = function (chuoi) {
+    var ketQua = chuoi.match(/(\d+|\D+)/g);
+    return ketQua || [];
+}
+
+// Get selected cell bettwen 2 cell
+let selectCells = function(cell1, cell2 = null){
+    if(!(cell1 && cell2)){
+        if(cell1){
+            renderSlectedCell(cell1);
+            return;
+        }
+        if(cell2){
+            renderSlectedCell(cell2);
+            return;
+        }
+        resetSelectedQue();
+        selectedQue = [];
+    }
+    cell1 = splitDigitsAndLetters(cell1);
+    cell2 = splitDigitsAndLetters(cell2);
+    let rangeX = [formatInRangeX(converStringToNumber(cell1[0])),formatInRangeX(converStringToNumber(cell2[0]))];
+    let rangeY = [formatInRangeY(parseInt(cell1[1],10)),formatInRangeY(parseInt(cell2[1],10))];
+    if(rangeX[0] > rangeX[1]){
+        let temp = rangeX[1];
+        rangeX[1] = rangeX[0];
+        rangeX[0] = temp;
+    }
+    if(rangeY[0] > rangeY[1]){
+        let temp = rangeY[1];
+        rangeY[1] = rangeY[0];
+        rangeY[0] = temp;
+    }
+    renderMultipleSlectedCells(rangeX,rangeY);
+}
+
+document.getElementById("txtCatalogArea").addEventListener('input', debounce((e) => {
+    let inputValue = e.target.value;
+    let cells = [...inputValue.split(":")];
+    selectCells(cells[0],cells[1]);
+},500))
+
+//Main function() all script excute in it.
+let Main = function() {
+    setTableHeader();
+    console.log(sheetData);
+    doomTable();
+}
+
+Main();

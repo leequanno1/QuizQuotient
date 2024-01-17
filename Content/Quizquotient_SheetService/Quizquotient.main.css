@@ -70,6 +70,7 @@ table, th, td {
 
 table {
     min-width: 600px;
+    user-select: none;
 }
 
 td {
@@ -89,6 +90,10 @@ td >div,th>div {
     background: black;
 }
 
+.cell-selected {
+    background: #484b5b;
+}
+
 .tr-0 div{
     border: 1px solid #fff;
 }
@@ -96,4 +101,5 @@ td >div,th>div {
 th {
     min-width: 40px;
     text-align: center;
+    background: black;
 }
