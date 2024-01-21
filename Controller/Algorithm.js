@@ -7,3 +7,11 @@ let debounce = (cb, delay = 300) => {
         },delay)
     }
 }
+
+let gennerateQue = function (start, end){
+    let que = [];
+    for(let i = start; i <= end; i++){
+        que.push(i);
+    }
+    return que;
+}

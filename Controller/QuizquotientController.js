@@ -30,7 +30,7 @@ let resetSelectedQue = function() {
     }
 }
 
-
+// render selected for only one cell
 let renderSlectedCell = function(cell){
     resetSelectedQue();
     selectedQue = [];
@@ -38,6 +38,7 @@ let renderSlectedCell = function(cell){
     renderSelectedQue()
 }
 
+// render selected for multiple cells
 let renderMultipleSlectedCells = function(rangeX,rangeY){
     resetSelectedQue();
     selectedQue = [];
@@ -86,6 +87,7 @@ let convertCharToAscci = function(character) {
     return character.charCodeAt(0) - 64;
 }
 
+// Convert String like "AAA" into index number
 let converStringToNumber = function(character) {
     let res = 0;
     for(let i = 0; i < character.length; i++){
@@ -124,9 +126,27 @@ let setTableHeader = function() {
     }
 }
 
+// Slip Digit and Latters
+let splitDigitsAndLetters = function (chuoi) {
+    var ketQua = chuoi.match(/(\d+|\D+)/g);
+    return ketQua || [];
+}
+
+// Get form data and return an object
+let getFormData = function(){
+    return {
+        catalog_start: splitDigitsAndLetters(document.getElementById("txtCatalogArea").value.toUpperCase().split(":")[0]),
+        catalog_end: splitDigitsAndLetters(document.getElementById("txtCatalogArea").value.toUpperCase().split(":")[1]),
+        question_quantity: document.getElementById("txtquestionQuantity").value,
+    };
+}
+
 // Doom table cell
-let doomTable = function() {
-    let doomElement = sheetData.map((row, indexX) => {
+let doomTable = function(tableData = null) {
+    if (!tableData){
+        tableData = sheetData;
+    }
+    let doomElement = tableData.map((row, indexX) => {
         let tdString = row.map((element, indexY) => {
             let content = element;
             let cell;
@@ -149,11 +169,6 @@ let doomTable = function() {
     }).join(" ");
 
     document.getElementById("contentSheet").innerHTML = doomElement;
-}
-
-let splitDigitsAndLetters = function (chuoi) {
-    var ketQua = chuoi.match(/(\d+|\D+)/g);
-    return ketQua || [];
 }
 
 // Get selected cell bettwen 2 cell
@@ -191,12 +206,45 @@ document.getElementById("txtCatalogArea").addEventListener('input', debounce((e)
     let inputValue = e.target.value;
     let cells = [...inputValue.split(":")];
     selectCells(cells[0],cells[1]);
-},500))
+},300))
+
+document.getElementById("btnGennerate").addEventListener("click", () => {
+    let formData = getFormData();
+    let questionQue = gennerateQue(1,formData.question_quantity);
+    let sheetDataClone = new Array(sheetData.length);
+    // clone sheet datas
+    for(let i = 0; i < sheetData.length; i++){
+        sheetDataClone[i] = [...sheetData[i]];
+    }
+    sheetDataClone[0].push(getTableHeader(sheetDataClone[0].length));
+    for(let i = 1; i < sheetDataClone.length; i++){
+        if(i >= formData.catalog_start[1] && i <= formData.catalog_end[1]){
+            if(questionQue.length == 0){
+                questionQue = gennerateQue(1,formData.question_quantity);
+            }
+            let randomNumber = Math.floor(Math.random() * questionQue.length)
+            sheetDataClone[i].push(questionQue[randomNumber]);
+            questionQue.splice(randomNumber, 1);
+        }else{
+            sheetDataClone[i].push(undefined);
+        }
+    }
+    if(formData.catalog_start[1] == 1){
+        console.log("equal 1")
+        sheetDataClone.splice(1,0,new Array(sheetDataClone[0].length).fill(undefined));
+        sheetDataClone[1][sheetData[0].length] = "Câu hỏi";
+        for(let i = 1; i < sheetDataClone.length; i++){
+            sheetDataClone[i][0] = i;
+        }
+    }else{
+        sheetDataClone[formData.catalog_start[1]-1][sheetData[0].length] = "Câu hỏi";
+    }
+    doomTable(sheetDataClone);
+})
 
 //Main function() all script excute in it.
 let Main = function() {
     setTableHeader();
-    console.log(sheetData);
     doomTable();
 }
 

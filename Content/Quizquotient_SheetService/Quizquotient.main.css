@@ -16,6 +16,7 @@ header {
     display: flex;
     align-items: center;
     padding-left: 20px;
+    background: #161719;
 }
 
 header #logoNav {
@@ -34,9 +35,6 @@ main {
 
 .filter-container {
     width: 350px;
-}
-
-.filter-container:nth-child(1) {
     margin-right: 60px;
 }
 
@@ -70,7 +68,7 @@ table, th, td {
 
 table {
     min-width: 600px;
-    user-select: none;
+    /* user-select: none; */
 }
 
 td {
